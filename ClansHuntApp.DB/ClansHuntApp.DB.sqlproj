@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>ClansHuntApp.Database</Name>
+    <Name>ClansHuntApp.DB</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{b10c6cb8-22cd-4360-a0fc-b58bcf52a2fd}</ProjectGuid>
+    <ProjectGuid>{906154e3-6698-41ac-83a2-0684f2c71556}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>ClansHuntApp.Database</RootNamespace>
-    <AssemblyName>ClansHuntApp.Database</AssemblyName>
+    <RootNamespace>ClansHuntApp.DB</RootNamespace>
+    <AssemblyName>ClansHuntApp.DB</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
@@ -61,7 +61,7 @@
     <Folder Include="dbo\Tables\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\Member.sql" />
     <Build Include="dbo\Tables\MemberStatus.sql" />
+    <Build Include="dbo\Tables\Member.sql" />
   </ItemGroup>
 </Project>
