@@ -11,14 +11,16 @@ namespace ClansHuntApp.Infrastructure.Services
     public class MembersDataActivityService : IMembersDataActivityService
     {
         private Func<IMembersDataRepository> MembersRepositoryFactory;
-        public List<Member> MembersList { get; private set; }
+        private Func<IDestinationDataRepository> DestinationRepositoryFactory;
+        public List<Member> MembersList { get; set; }
 
         private string _validationMessage;
         public string ValidationMessage { get => _validationMessage; }
 
-        public MembersDataActivityService(Func<IMembersDataRepository> membersRepositoryFactory)
+        public MembersDataActivityService(Func<IMembersDataRepository> membersRepositoryFactory, Func<IDestinationDataRepository> destinationRepositoryFactory)
         {
             MembersRepositoryFactory = membersRepositoryFactory;
+            DestinationRepositoryFactory = destinationRepositoryFactory;
         }
 
         public bool LoadMembersData()
@@ -41,7 +43,24 @@ namespace ClansHuntApp.Infrastructure.Services
 
         public bool SaveMembersData()
         {
-            throw new NotImplementedException();
+            bool result = true;
+            try
+            {
+                using (var destinationRepository = DestinationRepositoryFactory())
+                {
+                    if (MembersList == null)
+                    {
+                        throw new NullReferenceException("MemberList collection is not initialized!");
+                    }
+                    destinationRepository.SaveAllMembersData(MembersList);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                _validationMessage = ex.ToString();
+            }
+            return result;
         }
     }
 }

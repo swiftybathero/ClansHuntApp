@@ -29,8 +29,10 @@ namespace ClansHuntApp.Tests
             (
                 Component.For<IMembersDataActivityService>().ImplementedBy<MembersDataActivityService>(),
                 Component.For<IMembersDataRepository>().ImplementedBy<MembersDataRepository>(),
+                Component.For<IDestinationDataRepository>().ImplementedBy<DestinationDataRepository>(),
                 Component.For<IConfigurationReader>().ImplementedBy<ConfigurationReader>(),
-                Component.For<Func<IMembersDataRepository>>().AsFactory()
+                Component.For<Func<IMembersDataRepository>>().AsFactory(),
+                Component.For<Func<IDestinationDataRepository>>().AsFactory()
             );
         }
 
@@ -52,6 +54,16 @@ namespace ClansHuntApp.Tests
         {
             membersDataActivityService.LoadMembersData();
             Assert.That((membersDataActivityService as MembersDataActivityService).MembersList.Count, Is.Not.EqualTo(0));
+        }
+
+        [Test]
+        public void SaveMembersDoesNotThrowException()
+        {
+            Assert.DoesNotThrow(() =>
+            {
+                membersDataActivityService.LoadMembersData();
+                membersDataActivityService.SaveMembersData();
+            });
         }
     }
 }
