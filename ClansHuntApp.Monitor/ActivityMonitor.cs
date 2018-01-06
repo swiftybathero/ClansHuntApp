@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ClansHuntApp.Monitor.Configuration.Interfaces;
 using ClansHuntApp.Monitor.Interfaces;
 using ClansHuntApp.Infrastructure.Services;
+using ClansHuntApp.Monitor.Events;
 using System.Threading;
 using System.Diagnostics;
 
@@ -45,6 +46,11 @@ namespace ClansHuntApp.Monitor
         private CancellationTokenSource CancellationTokenSource { get; set; }
         private Stopwatch Stopwatch { get; set; }
 
+        #region Events
+        public event EventHandler<MonitorActivityEventArgs> MonitorStarted;
+        public event EventHandler<MonitorActivityEventArgs> MonitorStopped;
+        #endregion
+
         private ActivityMonitor()
         {
         }
@@ -60,6 +66,8 @@ namespace ClansHuntApp.Monitor
 
         public async Task StartMonitorAsync()
         {
+            OnMonitorStarted();
+
             CancellationTokenSource = new CancellationTokenSource();
             if (MonitorTimeout != 0)
             {
@@ -75,6 +83,8 @@ namespace ClansHuntApp.Monitor
                     await Task.Delay((int)intervalRemaining, CancellationTokenSource.Token);
                 }
             }
+
+            OnMonitorStopped();
         }
 
         private Task CallMonitorAsync()
@@ -97,6 +107,18 @@ namespace ClansHuntApp.Monitor
         public void StopMonitor()
         {
             CancellationTokenSource.Cancel();
+            OnMonitorStopped();
         }
+
+        #region Event helpers
+        public void OnMonitorStarted()
+        {
+            MonitorStarted?.Invoke(this, new MonitorActivityEventArgs { Message = "Activity monitor started", Time = DateTime.Now });
+        }
+        public void OnMonitorStopped()
+        {
+            MonitorStopped?.Invoke(this, new MonitorActivityEventArgs { Message = "Activity monitor stopped", Time = DateTime.Now });
+        } 
+        #endregion
     }
 }
