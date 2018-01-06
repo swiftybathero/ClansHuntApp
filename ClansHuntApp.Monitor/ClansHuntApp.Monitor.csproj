@@ -41,9 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityMonitor.cs" />
-    <Compile Include="ActivityMonitorSettings.cs" />
+    <Compile Include="Configuration\Interfaces\IActivityMonitorConfiguration.cs" />
     <Compile Include="Interfaces\IActivityMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClansHuntApp.Infrastructure\ClansHuntApp.Infrastructure.csproj">
+      <Project>{912066f2-3f6f-44ee-b67a-89289b6d5790}</Project>
+      <Name>ClansHuntApp.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
