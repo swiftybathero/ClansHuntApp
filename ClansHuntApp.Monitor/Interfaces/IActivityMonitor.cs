@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace ClansHuntApp.Monitor.Interfaces
 {
-    public interface IActivityMonitor : IActivityMonitorConfiguration
+    public interface IActivityMonitor
     {
         Task StartMonitorAsync();
         void StopMonitor();
+        IActivityMonitorConfiguration Configuration { get; set; }
     }
 }
