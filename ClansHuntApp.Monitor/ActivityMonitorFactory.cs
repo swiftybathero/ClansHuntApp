@@ -39,17 +39,10 @@ namespace ClansHuntApp.Monitor
             .Register
             (
                 Component.For<IActivityMonitor>().ImplementedBy<ActivityMonitor>(),
-                //Component.For<IActivityMonitorConfiguration>().Instance
-                //(
-                //    new ActivityMonitorGenericConfiguration
-                //    {
-                //        MonitorRunInterval = 60 * 1000,
-                //        MonitorTimeout = 0
-                //    }
-                //),
+                Component.For<IActivityMonitorConfiguration>().ImplementedBy<ActivityMonitorGenericConfiguration>(),
                 Component.For<IMembersDataActivityService>().ImplementedBy<MembersDataActivityService>(),
-                Component.For<IMembersDataRepository>().ImplementedBy<MembersDataRepository>(),
-                Component.For<IDestinationDataRepository>().ImplementedBy<DestinationDataRepository>(),
+                Component.For<IMembersDataRepository>().ImplementedBy<MembersDataRepository>().LifeStyle.Transient,
+                Component.For<IDestinationDataRepository>().ImplementedBy<DestinationDataRepository>().LifeStyle.Transient,
                 Component.For<IConfigurationReader>().ImplementedBy<ConfigurationReader>(),
                 Component.For<Func<IMembersDataRepository>>().AsFactory(),
                 Component.For<Func<IDestinationDataRepository>>().AsFactory()
@@ -58,9 +51,9 @@ namespace ClansHuntApp.Monitor
             return windsorContainer;
         }
 
-        public static ActivityMonitor Create()
+        public static IActivityMonitor Create()
         {
-            return Container.Resolve<ActivityMonitor>();
+            return Container.Resolve<IActivityMonitor>();
         }
     }
 }

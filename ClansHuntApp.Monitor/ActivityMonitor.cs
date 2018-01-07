@@ -55,11 +55,11 @@ namespace ClansHuntApp.Monitor
         {
         }
 
-        protected ActivityMonitor(IMembersDataActivityService membersDataActivityService) : this()
+        public ActivityMonitor(IMembersDataActivityService membersDataActivityService) : this()
         {
             MembersDataActivityService = membersDataActivityService;
         }
-        protected ActivityMonitor(IMembersDataActivityService membersDataActivityService, IActivityMonitorConfiguration activityMonitorConfiguration) : this(membersDataActivityService)
+        public ActivityMonitor(IMembersDataActivityService membersDataActivityService, IActivityMonitorConfiguration activityMonitorConfiguration) : this(membersDataActivityService)
         {
             Configuration = activityMonitorConfiguration;
         }
@@ -91,8 +91,14 @@ namespace ClansHuntApp.Monitor
         {
             return Task.Run(() =>
             {
-                MembersDataActivityService.LoadMembersData();
-                MembersDataActivityService.SaveMembersData();
+                if (!MembersDataActivityService.LoadMembersData())
+                {
+                    throw new Exception(MembersDataActivityService.ValidationMessage);
+                }
+                if (!MembersDataActivityService.SaveMembersData())
+                {
+                    throw new Exception(MembersDataActivityService.ValidationMessage);
+                }
             },
             CancellationTokenSource.Token);
         }
