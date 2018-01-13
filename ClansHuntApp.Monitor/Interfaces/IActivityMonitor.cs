@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClansHuntApp.Monitor.Configuration.Interfaces;
+using ClansHuntApp.Monitor.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +10,10 @@ namespace ClansHuntApp.Monitor.Interfaces
 {
     public interface IActivityMonitor
     {
-        void StartMonitor();
         Task StartMonitorAsync();
         void StopMonitor();
+        IActivityMonitorConfiguration Configuration { get; set; }
+        event EventHandler<MonitorActivityEventArgs> MonitorStarted;
+        event EventHandler<MonitorActivityEventArgs> MonitorStopped;
     }
 }
