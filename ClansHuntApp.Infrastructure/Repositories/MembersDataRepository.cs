@@ -14,7 +14,7 @@ namespace ClansHuntApp.Infrastructure.Repositories
 {
     public class MembersDataRepository : IMembersDataRepository
     {
-        private HttpClient HttpClient;
+        private readonly HttpClient HttpClient;
 
         private const string BaseRepositoryAddress = "https://api.clashofclans.com/";
         private const string RequestUri = "v1/clans/%23P89V02CG/members";
@@ -55,7 +55,7 @@ namespace ClansHuntApp.Infrastructure.Repositories
 
         public Member GetMemberByTag(string memberTag)
         {
-            return GetAllMembers().Where(x => x.Tag == memberTag).FirstOrDefault();
+            return GetAllMembers().FirstOrDefault(x => x.Tag == memberTag);
         }
 
         private RootObject GetRequestRootObject()

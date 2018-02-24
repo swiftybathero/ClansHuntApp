@@ -10,7 +10,7 @@ namespace ClansHuntApp.Infrastructure.Repositories
 {
     public class DestinationDataRepository : IDestinationDataRepository
     {
-        private ClansHuntAppDBContext Context;
+        private readonly ClansHuntAppDBContext Context;
 
         public DestinationDataRepository()
         {

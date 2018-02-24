@@ -10,8 +10,8 @@ namespace ClansHuntApp.Infrastructure.Services
 {
     public class MembersDataActivityService : IMembersDataActivityService
     {
-        private Func<IMembersDataRepository> MembersRepositoryFactory;
-        private Func<IDestinationDataRepository> DestinationRepositoryFactory;
+        private readonly Func<IMembersDataRepository> MembersRepositoryFactory;
+        private readonly Func<IDestinationDataRepository> DestinationRepositoryFactory;
         public List<Member> MembersList { get; set; }
 
         private string _validationMessage;
@@ -50,7 +50,7 @@ namespace ClansHuntApp.Infrastructure.Services
                 {
                     if (MembersList == null)
                     {
-                        throw new NullReferenceException("MemberList collection is not initialized!");
+                        throw new ArgumentNullException(nameof(MembersList), "Collection is not initialized!");
                     }
                     destinationRepository.SaveAllMembersData(MembersList);
                 }

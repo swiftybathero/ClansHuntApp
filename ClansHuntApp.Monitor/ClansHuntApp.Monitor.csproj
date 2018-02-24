@@ -54,6 +54,7 @@
     <Compile Include="Configuration\ActivityMonitorGenericConfiguration.cs" />
     <Compile Include="Configuration\Interfaces\IActivityMonitorConfiguration.cs" />
     <Compile Include="Events\MonitorActivityEventArgs.cs" />
+    <Compile Include="Exceptions\DataOperationException.cs" />
     <Compile Include="Interfaces\IActivityMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

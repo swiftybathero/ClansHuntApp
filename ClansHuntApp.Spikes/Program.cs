@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace ClansHuntApp.Spikes
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
