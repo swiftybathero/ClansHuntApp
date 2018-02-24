@@ -9,6 +9,7 @@ using ClansHuntApp.Infrastructure.Services;
 using ClansHuntApp.Monitor.Events;
 using System.Threading;
 using System.Diagnostics;
+using ClansHuntApp.Monitor.Exceptions;
 
 namespace ClansHuntApp.Monitor
 {
@@ -16,7 +17,10 @@ namespace ClansHuntApp.Monitor
     {
         public IActivityMonitorConfiguration Configuration { get; set; }
 
-        private int _monitorRunInterval = 5 * 60 * 1000;
+        /// <summary>
+        /// Default interval - 5 minutes
+        /// </summary>
+        private readonly int _monitorRunInterval = 5 * 60 * 1000;
         private int MonitorRunInterval
         {
             get
@@ -29,7 +33,10 @@ namespace ClansHuntApp.Monitor
             }
         }
 
-        private int _monitorTimeout = 0;
+        /// <summary>
+        /// Default interval - 5 minutes
+        /// </summary>
+        private readonly int _monitorTimeout = 0;
         private int MonitorTimeout
         {
             get
@@ -93,11 +100,11 @@ namespace ClansHuntApp.Monitor
             {
                 if (!MembersDataActivityService.LoadMembersData())
                 {
-                    throw new Exception(MembersDataActivityService.ValidationMessage);
+                    throw new DataOperationException(MembersDataActivityService.ValidationMessage);
                 }
                 if (!MembersDataActivityService.SaveMembersData())
                 {
-                    throw new Exception(MembersDataActivityService.ValidationMessage);
+                    throw new DataOperationException(MembersDataActivityService.ValidationMessage);
                 }
             },
             CancellationTokenSource.Token);

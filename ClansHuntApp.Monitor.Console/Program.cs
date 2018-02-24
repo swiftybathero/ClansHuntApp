@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ClansHuntApp.Monitor.Console
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
