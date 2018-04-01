@@ -10,8 +10,12 @@ namespace ClansHuntApp.Monitor.Console
 {
     static class Program
     {
+        public static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(typeof(Program));
+
         static void Main(string[] args)
         {
+            Logger.Info("Welcome to Logger!");
+
             IActivityMonitor activityMonitor = ActivityMonitorFactory.Create();
             activityMonitor.Configuration.MonitorRunInterval = 1 * 60 * 1000;
             activityMonitor.MonitorStarted += OnMonitorActivity;
